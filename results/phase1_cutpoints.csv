@@ -1,0 +1,6 @@
+variable,states,interior cut points,rationale
+age,<50 | 50-59 | >=60,"50, 60",decade-style risk bands
+trestbps,<130 | >=130,130,fixed modelling split at 130 mmHg; not a diagnosis
+chol,<240 | >=240,240,fixed modelling split at 240 mg/dl
+apmhr,<70% | 70-84% | >=85%,"0.7, 0.85",rough age-adjusted HR feature; not a diagnostic criterion
+oldpeak,<1mm | 1-<2mm | >=2mm,"1, 2",fixed splits at 1 and 2 in supplied ST-depression units
