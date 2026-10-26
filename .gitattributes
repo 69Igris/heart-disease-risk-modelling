@@ -1,0 +1,2 @@
+# keep the official data file byte-identical on every OS (SHA-256 is checked by a test)
+data/processed.cleveland.data -text

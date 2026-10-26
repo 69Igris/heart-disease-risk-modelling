@@ -1,0 +1,11 @@
+numpy==2.5.4
+pandas==3.1.0
+scipy==1.18.1
+scikit-learn==1.9.1
+pgmpy==1.1.2
+matplotlib==3.11.2
+networkx==3.7
+nbformat==5.11.1
+nbconvert==7.17.2
+ipykernel==6.31.0
+pytest==9.1.1
