@@ -24,7 +24,7 @@ python -m pip install -r requirements.txt
 python src/download_data.py
 python -m pytest -q
 ```
-`pytest` should currently report 14 passed (a pgmpy deprecation warning is expected).
+`pytest` should currently report 21 passed (a pgmpy deprecation warning is expected).
 
 To run the notebook: `python -m pip install jupyterlab`, then `jupyter lab` and open the notebook from the `notebooks/` directory (relative paths assume that working directory). Some cells take minutes.
 
@@ -37,6 +37,9 @@ To run the notebook: `python -m pip install jupyterlab`, then `jupyter lab` and 
 - `src/data.py`: fixed discretisation cut points and the age-adjusted heart-rate feature
 - `tests/test_features.py`: discretisation checks
 - notebook: signal screening and the documented cut points (`results/phase1_cutpoints.csv`)
+- `src/bayes.py`: hand-specified Bayesian network and Naive Bayes (pgmpy)
+- `src/classical.py`: logistic regression (binned / continuous), random forest and prior-only baseline
+- `tests/test_models.py`: model and preprocessing checks
 
 ## Data and attribution
 Official page: https://archive.ics.uci.edu/dataset/45/heart+disease
