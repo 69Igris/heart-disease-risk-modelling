@@ -24,9 +24,18 @@ python -m pip install -r requirements.txt
 python src/download_data.py
 python -m pytest -q
 ```
-`pytest` should currently report 24 passed (a pgmpy deprecation warning is expected).
+`pytest` should currently report 26 passed (a pgmpy deprecation warning is expected).
 
-To run the notebook: `python -m pip install jupyterlab`, then `jupyter lab` and open the notebook from the `notebooks/` directory (relative paths assume that working directory). Some cells take minutes.
+To re-run everything non-interactively (bootstrap cells take minutes):
+
+```bash
+cd notebooks
+jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=1200 01_phase1_eda_and_classical_models.ipynb
+cd ..
+python src/build_latex_tables.py
+python -m pytest -q
+```
+The notebook must be run from `notebooks/`. Compile the report as described in `report/README.md`.
 
 ## Contents
 - `data/`: the official UCI processed Cleveland file and its provenance
@@ -44,6 +53,11 @@ To run the notebook: `python -m pip install jupyterlab`, then `jupyter lab` and 
 - `tests/test_evaluation.py`: split and saved-prediction checks
 - notebook: evaluation protocol, results, calibration and paired comparisons
 - `results/`: split manifest, out-of-fold predictions, metrics, paired comparisons
+- notebook: ablations, prior-strength sensitivity and exact Bayesian-network explanations
+- `report/`: IEEE-format LaTeX report (`main.tex`, `references.bib`) and compiled `phase1_report.pdf`; see `report/README.md`
+- `presentation/`: 12-slide deck (PPTX and PDF)
+- `src/build_latex_tables.py`: writes the report tables from `results/*.csv`
+- `tests/test_results.py`: explanation-output and scope checks
 
 ## Data and attribution
 Official page: https://archive.ics.uci.edu/dataset/45/heart+disease
@@ -53,3 +67,6 @@ Only `processed.cleveland.data` from the official archive is used (not an arbitr
 
 ## Interpretation notes
 Target: `num > 0` (139 positives / 164 negatives), i.e. existing disease status, not future risk. PR AUC is average precision. Sensitivity and specificity use a 0.5 threshold. All models share 5 folds x 5 repeats; each repeat's metrics are computed on the 303 out-of-fold rows and then averaged, and repeated predictions are not independent patients. A non-significant AUC difference is not evidence of equivalence. No claim of clinical readiness or causal discovery is made.
+
+## AI assistance
+Parts of the code, analysis, report and slides were drafted with AI assistance (Claude, Anthropic). The team is responsible for the contents; see the disclosure in the report and the Git history for who committed what.

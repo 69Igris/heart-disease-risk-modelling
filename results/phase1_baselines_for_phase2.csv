@@ -1,0 +1,6 @@
+model,ROC AUC,PR AUC,Sensitivity,Specificity,Brier,ECE,Cal. slope
+Naive Bayes,0.908,0.904,0.791,0.888,0.126,0.087,0.511
+Bayesian net,0.896,0.882,0.778,0.851,0.139,0.086,0.487
+LogReg (disc.),0.907,0.898,0.809,0.888,0.118,0.05,0.987
+LogReg (cont.),0.911,0.905,0.804,0.889,0.116,0.047,0.983
+Random forest,0.908,0.901,0.787,0.855,0.125,0.055,1.421
