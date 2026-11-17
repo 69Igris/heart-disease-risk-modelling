@@ -1,0 +1,7 @@
+model,seconds per fold,parameters
+Naive Bayes,0.04091286659240723,CPD entries
+Bayesian net,0.03775906562805176,CPD entries
+LogReg (cont.),0.008588075637817383,29
+Random forest,0.14898085594177246,300 trees
+"MLP (fixed config, no tuning)",0.0676417350769043,481
+"MLP (nested tuning, as evaluated)",2.600197639465332,481 (×5 seeds)
