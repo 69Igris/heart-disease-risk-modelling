@@ -1,0 +1,12 @@
+\begin{tabular}{lcc}
+\toprule
+Model & Seconds per fold & Size \\
+\midrule
+Naive Bayes & 0.041 & CPD entries \\
+Bayesian net & 0.038 & CPD entries \\
+LogReg (cont.) & 0.009 & 29 \\
+Random forest & 0.149 & 300 trees \\
+MLP (fixed config, no tuning) & 0.068 & 481 \\
+MLP (nested tuning, as evaluated) & 2.600 & 481 ($\times$5 seeds) \\
+\bottomrule
+\end{tabular}

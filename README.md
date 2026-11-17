@@ -1,5 +1,9 @@
-# Heart Disease Risk Modelling - Phase 1
-Advanced Machine Learning, Project 15. UCI processed Cleveland data: Bayesian network, discrete Naive Bayes, logistic regression and random forest. **Prediction exercise only, not clinical decision support.** No MLP or SHAP implementation is included; those belong to Phase 2.
+# Heart Disease Risk Modelling - Phase 1 and Phase 2
+Project 15. UCI processed Cleveland data.
+- **Phase 1 (Advanced ML):** Bayesian network, discrete Naive Bayes, logistic regression and random forest.
+- **Phase 2 (Deep Learning):** a regularised PyTorch MLP compared with the Bayesian network on the same 25 splits, with calibration and SHAP.
+
+**Prediction exercise only, not clinical decision support.**
 
 ## Team
 | Student | Enrollment number | Email |
@@ -24,7 +28,7 @@ python -m pip install -r requirements.txt
 python src/download_data.py
 python -m pytest -q
 ```
-`pytest` should currently report 26 passed (a pgmpy deprecation warning is expected).
+`pytest` should currently report 33 passed (26 Phase 1 + 7 Phase 2; a pgmpy deprecation warning is expected).
 
 To re-run everything non-interactively (bootstrap cells take minutes):
 
@@ -58,6 +62,25 @@ The notebook must be run from `notebooks/`. Compile the report as described in `
 - `presentation/`: 12-slide deck (PPTX and PDF)
 - `src/build_latex_tables.py`: writes the report tables from `results/*.csv`
 - `tests/test_results.py`: explanation-output and scope checks
+
+## Phase 2 (Deep Learning)
+Phase 2 adds a regularised MLP (`src/mlp.py`, PyTorch). Size, weight decay, dropout and number of epochs are chosen by nested cross-validation, and the final model averages 5 seeds. Explanations use Kernel SHAP in log-odds (`src/explain.py`). Everything runs in `notebooks/02_phase2_mlp_and_comparison.ipynb` on the same 25 saved splits, reusing the saved Phase 1 predictions.
+
+```bash
+cd notebooks
+jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=1800 02_phase2_mlp_and_comparison.ipynb
+cd ..
+python src/build_phase2_tables.py
+python -m pytest -q
+```
+The notebook takes about 4 minutes on a laptop CPU.
+- **Outputs:** `results/phase2_*.csv`, `results/phase2_oof_predictions.csv.gz`, `results/figures/fig_p2_*.png`.
+- **Report:** separate IEEE report in `report/phase2/` (`phase2_report.pdf`).
+- **Slides:** 16-slide deck in `presentation/phase2_deck.pptx` and `phase2_deck.pdf`.
+- **Walkthrough:** `docs/PHASE2_WALKTHROUGH.md`.
+- **Tests:** `tests/test_mlp.py`.
+
+Headline result: the MLP ranks no better than the Bayesian network (AUC 0.911 vs 0.896, paired interval includes 0). Its probabilities are much better calibrated (slope 1.00 vs 0.49; Brier 0.117 vs 0.139, interval excludes 0). It behaves almost exactly like logistic regression on the same inputs.
 
 ## Data and attribution
 Official page: https://archive.ics.uci.edu/dataset/45/heart+disease
