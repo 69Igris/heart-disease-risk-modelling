@@ -12,5 +12,8 @@ def test_saved_explanation_rows_have_missing_not_zero_fabrication():
     assert w.isna().all(axis=1).sum() == 6
 
 
-def test_no_phase2_implementation_shipped():
+def test_phase2_lives_alongside_phase1_without_overwriting_it():
+    # Phase 2 writes only phase2_* result files; Phase 1 outputs are reused, never regenerated
+    assert (ROOT / 'results/phase1_oof_predictions.csv.gz').exists()
+    assert (ROOT / 'notebooks/02_phase2_mlp_and_comparison.ipynb').exists()
     assert not (ROOT / 'phase2').exists()
